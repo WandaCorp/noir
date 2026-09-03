@@ -4,7 +4,8 @@ import { Calendar, Globe, MapPin, Star, User, Film, Tv, ArrowLeft } from "lucide
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { profileUrl, posterUrl, formatDate } from "@/lib/tmdb/helpers";
+import { profileUrl, posterUrl } from "@/lib/tmdb/helpers";
+import { formatDate } from "@/lib/format";
 import type { PersonDetails, PersonCast, MediaType } from "@/lib/tmdb/types";
 
 type TabType = "movie" | "tv";
