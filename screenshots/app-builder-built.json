@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "NOIR",
+      "hasCanvas": false,
+      "bodyTextLen": 7291,
+      "bodyTextHash": "f3d84be983ae8b72c57e7ec10e02967782cfacc19686aa14018fcc8a3e0c6816",
+      "bodyTextPrefix": "NOIR Inicio Buscar Favoritos Buscar películas o series PELÍCULA ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "NOIR",
+      "hasCanvas": false,
+      "bodyTextLen": 7183,
+      "bodyTextHash": "19be3314ee8b202b3880d803054f663dc233f73c140397a2c46845978e55fd57",
+      "bodyTextPrefix": "NOIR PELÍCULA · 2026 Susurran tu nombre 6.4 en TMDb Tras la desa",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
