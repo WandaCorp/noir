@@ -198,22 +198,26 @@ const searchQuery = useInfiniteQuery({
     Personas
   </button>
 </div>
-          <Select value={params.genre} onChange={(e) => patch({ genre: e.target.value })} aria-label="Género">
-            <option value="">Todos los géneros</option>
-            {(genres ?? []).map((genre) => (
-              <option key={genre.id} value={String(genre.id)}>
-                {genre.name}
-              </option>
-            ))}
-          </Select>
-          <Select value={params.year} onChange={(e) => patch({ year: e.target.value })} aria-label="Año">
-            <option value="">Cualquier año</option>
-            {YEAR_OPTIONS.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </Select>
+          {params.media !== "person" ? (
+  <>
+    <Select value={params.genre} onChange={(e) => patch({ genre: e.target.value })} aria-label="Género">
+      <option value="">Todos los géneros</option>
+      {(genres ?? []).map((genre) => (
+        <option key={genre.id} value={String(genre.id)}>
+          {genre.name}
+        </option>
+      ))}
+    </Select>
+    <Select value={params.year} onChange={(e) => patch({ year: e.target.value })} aria-label="Año">
+      <option value="">Cualquier año</option>
+      {YEAR_OPTIONS.map((year) => (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      ))}
+    </Select>
+  </>
+) : null}
         </div>
 
         <div className="mt-8">
@@ -270,10 +274,14 @@ function PersonResult({ person }: { person: PersonSearchResult }) {
         <p className="font-medium group-hover:text-accent">{person.name}</p>
         <p className="text-sm text-muted">{person.known_for_department}</p>
         {person.known_for?.length > 0 ? (
-          <p className="mt-1 truncate text-xs text-subtle">
-            {person.known_for.map((m) => m.title || m.name).join(", ")}
-          </p>
-        ) : null}
+  <p className="mt-1 truncate text-xs text-subtle">
+    {person.known_for
+      .map((m) => m.title || m.name)
+      .slice(0, 3) // 🆕 Solo mostrar 3 títulos
+      .join(" · ")} {/* 🆕 Separador más visual */}
+    {person.known_for.length > 3 ? "…" : ""} {/* 🆕 Indicar que hay más */}
+  </p>
+) : null}
       </div>
     </Link>
   );
