@@ -244,3 +244,12 @@ export type PersonDetails = {
     profiles: PersonImage[];
   };
 };
+
+export type PersonSearchResult = {
+  id: number;
+  name: string;
+  profile_path: string | null;
+  known_for_department: string;
+  known_for: MediaSummary[];
+  popularity: number;
+};

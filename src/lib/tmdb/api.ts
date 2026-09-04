@@ -112,6 +112,21 @@ export const tmdbSearch = createServerFn({ method: "GET" })
       ),
     };
   });
+  
+export const tmdbSearchPerson = createServerFn({ method: "GET" })
+  .validator((data: { query: string; page?: number }) => ({
+    query: data.query.trim(),
+    page: data.page ?? 1,
+  }))
+  .handler(async ({ data }) => {
+    if (!data.query) {
+      return { page: 1, results: [] as PersonDetails[], total_pages: 0, total_results: 0 };
+    }
+    return tmdbFetch<Paginated<PersonDetails>>("search/person", {
+      query: data.query,
+      page: data.page,
+    });
+  });
 
 export const tmdbDiscover = createServerFn({ method: "GET" })
   .validator((data: { media: MediaType; page?: number; genre?: string; year?: string; sort?: string }) => data)

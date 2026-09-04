@@ -1,6 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon, User } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/layout/app-shell";
@@ -8,16 +8,17 @@ import { MediaGrid } from "@/components/media/media-grid";
 import { GridSkeleton } from "@/components/media/skeletons";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { getGenres, tmdbDiscover, tmdbSearch } from "@/lib/tmdb/api";
+import { getGenres, tmdbDiscover, tmdbSearch, tmdbSearchPerson } from "@/lib/tmdb/api";
 import { YEAR_OPTIONS } from "@/lib/tmdb/catalogs";
-import { mediaYear } from "@/lib/tmdb/helpers";
-import type { MediaSummary, MediaType } from "@/lib/tmdb/types";
+import { mediaYear, profileUrl } from "@/lib/tmdb/helpers";
+import type { MediaSummary, MediaType, PersonSearchResult } from "@/lib/tmdb/types";
+import { cn } from "@/lib/utils";
 
 type SearchParams = {
   q: string;
   genre: string;
   year: string;
-  media: "all" | "movie" | "tv";
+  media: "all" | "movie" | "tv" | "person";
 };
 
 export const Route = createFileRoute("/search")({
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/search")({
     q: typeof search.q === "string" ? search.q : "",
     genre: typeof search.genre === "string" ? search.genre : "",
     year: typeof search.year === "string" ? search.year : "",
-    media: search.media === "movie" || search.media === "tv" ? search.media : "all",
+    media: search.media === "movie" || search.media === "tv" || search.media === "person" ? search.media : "all",
   }),
   component: SearchPage,
 });
@@ -56,24 +57,34 @@ function SearchPage() {
     queryFn: () => getGenres(),
   });
 
-  const hasQuery = params.q.trim().length > 0;
-  const discoverMedia: MediaType = params.media === "tv" ? "tv" : "movie";
+const hasQuery = params.q.trim().length > 0;
+const discoverMedia: MediaType = params.media === "tv" ? "tv" : "movie";
+const isPersonSearch = params.media === "person";
 
-  const searchQuery = useInfiniteQuery({
-    queryKey: ["search", params.q, params.media],
-    enabled: hasQuery,
-    queryFn: ({ pageParam }) =>
-      tmdbSearch({
+const searchQuery = useInfiniteQuery({
+  queryKey: ["search", params.q, params.media],
+  enabled: hasQuery,
+  queryFn: ({ pageParam }) => {
+    if (isPersonSearch) {
+      return tmdbSearchPerson({
         data: {
           query: params.q,
           page: pageParam,
-          media: params.media === "all" ? "multi" : params.media,
         },
-      }),
-    initialPageParam: 1,
-    getNextPageParam: (last) =>
-      last.page < last.total_pages && last.page < 500 ? last.page + 1 : undefined,
-  });
+      });
+    }
+    return tmdbSearch({
+      data: {
+        query: params.q,
+        page: pageParam,
+        media: params.media === "all" ? "multi" : params.media,
+      },
+    });
+  },
+  initialPageParam: 1,
+  getNextPageParam: (last) =>
+    last.page < last.total_pages && last.page < 500 ? last.page + 1 : undefined,
+});
 
   const discoverQuery = useInfiniteQuery({
     queryKey: ["discover-search", discoverMedia, params.genre, params.year],
@@ -149,15 +160,44 @@ function SearchPage() {
               autoFocus
             />
           </label>
-          <Select
-            value={params.media}
-            onChange={(e) => patch({ media: e.target.value as SearchParams["media"] })}
-            aria-label="Tipo"
-          >
-            <option value="all">Películas y series</option>
-            <option value="movie">Solo películas</option>
-            <option value="tv">Solo series</option>
-          </Select>
+         <div className="flex gap-1 rounded-lg bg-elevated p-1">
+  <button
+    onClick={() => patch({ media: "all" })}
+    className={cn(
+      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+      params.media === "all" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
+    )}
+  >
+    Todos
+  </button>
+  <button
+    onClick={() => patch({ media: "movie" })}
+    className={cn(
+      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+      params.media === "movie" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
+    )}
+  >
+    Películas
+  </button>
+  <button
+    onClick={() => patch({ media: "tv" })}
+    className={cn(
+      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+      params.media === "tv" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
+    )}
+  >
+    Series
+  </button>
+  <button
+    onClick={() => patch({ media: "person" })}
+    className={cn(
+      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+      params.media === "person" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
+    )}
+  >
+    Personas
+  </button>
+</div>
           <Select value={params.genre} onChange={(e) => patch({ genre: e.target.value })} aria-label="Género">
             <option value="">Todos los géneros</option>
             {(genres ?? []).map((genre) => (
@@ -182,12 +222,18 @@ function SearchPage() {
               Escribe un título o filtra por género y fecha para ver el catálogo.
             </p>
           ) : active.isLoading ? (
-            <GridSkeleton />
-          ) : items.length === 0 ? (
-            <p className="py-16 text-center text-muted">No hay coincidencias con esos filtros.</p>
-          ) : (
-            <MediaGrid items={items} />
-          )}
+  <GridSkeleton />
+) : items.length === 0 ? (
+  <p className="py-16 text-center text-muted">No hay coincidencias con esos filtros.</p>
+) : isPersonSearch ? (
+  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    {items.map((person) => (
+      <PersonResult key={person.id} person={person as PersonSearchResult} />
+    ))}
+  </div>
+) : (
+  <MediaGrid items={items} />
+)}
         </div>
         <div ref={sentinel} className="h-12" />
         {active.isFetchingNextPage ? (
@@ -197,6 +243,39 @@ function SearchPage() {
         ) : null}
       </div>
     </AppShell>
+  );
+}
+
+function PersonResult({ person }: { person: PersonSearchResult }) {
+  return (
+    <Link
+      to="/person/$id"
+      params={{ id: String(person.id) }}
+      className="group flex items-center gap-4 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)] transition-colors hover:bg-elevated"
+    >
+      <div className="size-16 shrink-0 overflow-hidden rounded-lg bg-elevated">
+        {profileUrl(person.profile_path) ? (
+          <img
+            src={profileUrl(person.profile_path)!}
+            alt={person.name}
+            className="size-full object-cover"
+          />
+        ) : (
+          <div className="grid size-full place-items-center text-subtle">
+            <User className="size-6" />
+          </div>
+        )}
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="font-medium group-hover:text-accent">{person.name}</p>
+        <p className="text-sm text-muted">{person.known_for_department}</p>
+        {person.known_for?.length > 0 ? (
+          <p className="mt-1 truncate text-xs text-subtle">
+            {person.known_for.map((m) => m.title || m.name).join(", ")}
+          </p>
+        ) : null}
+      </div>
+    </Link>
   );
 }
 

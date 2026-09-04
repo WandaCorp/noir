@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Calendar, Globe, MapPin, Star, User, Film, Tv, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,16 @@ import type { PersonDetails, PersonCast, MediaType } from "@/lib/tmdb/types";
 
 type TabType = "movie" | "tv";
 
-export function PersonPage({ person }: { person: PersonDetails }) {
-  const [activeTab, setActiveTab] = useState<TabType>("movie");
+export function PersonPage({ 
+	person, 
+	activeTab, 
+	onTabChange 
+	
+}: { 
+	person: PersonDetails;
+	activeTab: TabType;
+	onTabChange: (tab: TabType) => void;
+}) {
   
   const movieCredits = person.combined_credits.cast.filter(
     (c) => c.media_type === "movie" && c.poster_path
@@ -119,14 +126,14 @@ export function PersonPage({ person }: { person: PersonDetails }) {
         <div className="mt-4 flex gap-1 rounded-lg bg-elevated p-1">
           <TabButton
             active={activeTab === "movie"}
-            onClick={() => setActiveTab("movie")}
+            onClick={() => onTabChange("movie")}
             icon={<Film className="size-4" />}
             label="Películas"
             count={movieCredits.length}
           />
           <TabButton
             active={activeTab === "tv"}
-            onClick={() => setActiveTab("tv")}
+            onClick={() => onTabChange("tv")}
             icon={<Tv className="size-4" />}
             label="Series"
             count={tvCredits.length}
