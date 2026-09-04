@@ -274,7 +274,7 @@ function PersonResult({ person }: { person: PersonSearchResult }) {
       params={{ id: String(person.id) }}
       className="group flex items-center gap-4 rounded-xl bg-surface p-4 shadow-[var(--shadow-border)] transition-colors hover:bg-elevated"
     >
-      <div className="size-16 shrink-0 overflow-hidden rounded-lg bg-elevated">
+      <div className="size-14 shrink-0 overflow-hidden rounded-full bg-elevated sm:size-16">
         {profileUrl(person.profile_path) ? (
           <img
             src={profileUrl(person.profile_path)!}
@@ -290,16 +290,6 @@ function PersonResult({ person }: { person: PersonSearchResult }) {
       </div>
       <div className="min-w-0 flex-1">
         <p className="truncate font-medium group-hover:text-accent">{person.name}</p>
-        <p className="text-sm text-muted">{person.known_for_department}</p>
-        {person.known_for?.length > 0 ? (
-          <p className="mt-1 truncate text-xs text-subtle">
-            {person.known_for
-              .map((m) => m.title || m.name)
-              .slice(0, 3)
-              .join(" · ")}
-            {person.known_for.length > 3 ? "…" : ""}
-          </p>
-        ) : null}
       </div>
     </Link>
   );

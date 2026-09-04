@@ -165,12 +165,41 @@ export const getPersonDetails = createServerFn({ method: "GET" })
     });
   });
   
-  export const getPopularCollections = createServerFn({ method: "GET" })
+export const getPopularCollections = createServerFn({ method: "GET" })
   .handler(async () => {
-    return tmdbFetch<Paginated<CollectionSummary>>("collection/popular", {
+    // Obtenemos películas populares que pertenecen a colecciones
+    const popular = await tmdbFetch<Paginated<MediaSummary>>("movie/popular", {
       page: 1,
       language: "es-ES",
     });
+    
+    // Filtramos las que tienen colección
+    const withCollections = popular.results.filter((movie) => movie.belongs_to_collection);
+    
+    // Extraemos las colecciones únicas
+    const collections: CollectionSummary[] = [];
+    const seen = new Set<number>();
+    
+    for (const movie of withCollections) {
+      const collection = movie.belongs_to_collection!;
+      if (!seen.has(collection.id)) {
+        seen.add(collection.id);
+        collections.push({
+          id: collection.id,
+          name: collection.name,
+          overview: "",
+          poster_path: collection.poster_path,
+          backdrop_path: collection.backdrop_path,
+        });
+      }
+    }
+    
+    return {
+      page: 1,
+      results: collections,
+      total_pages: 1,
+      total_results: collections.length,
+    } as Paginated<CollectionSummary>;
   });
 
 export const getCollectionDetails = createServerFn({ method: "GET" })
