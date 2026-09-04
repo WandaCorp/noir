@@ -12,6 +12,35 @@ import type { Genre, HomeFeed } from "@/lib/tmdb/types";
 export const Route = createFileRoute("/")({
   loader: () => getHomeFeed(),
   pendingComponent: HomePending,
+  head: () => ({
+    meta: [
+      {
+        title: "NOIR - Descubre Películas, Series, Actores y Colecciones",
+      },
+      {
+        name: "description",
+        content:
+          "Descubre películas, series, actores y sagas completas inpulsadas con la base de datos de TMDb.",
+      },
+      {
+        property: "og:title",
+        content: "NOIR - Descubre Películas, Series, Actores y Colecciones",
+      },
+      {
+        property: "og:description",
+        content:
+          "Descubre películas, series, actores y sagas completas.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:url",
+        content: "https://noirdatabase.vercel.app/",
+      },
+    ],
+  }),
   component: Home,
 });
 

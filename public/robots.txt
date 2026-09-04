@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://noirdatabase.vercel.app/sitemap.xml

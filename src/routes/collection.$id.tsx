@@ -9,18 +9,61 @@ import { backdropUrl, posterUrl } from "@/lib/tmdb/helpers";
 import { formatRating } from "@/lib/format";
 
 export const Route = createFileRoute("/collection/$id")({
+  loader: async ({ params }) => {
+    const collection = await getCollectionDetails({ data: { id: params.id } });
+    return { collection };
+  },
+  head: ({ loaderData }) => ({
+    meta: [
+      {
+        title: loaderData
+          ? `${loaderData.collection.name} · Saga completa · NOIR`
+          : "Colección · NOIR",
+      },
+      {
+        name: "description",
+        content: loaderData?.collection.overview
+          ? loaderData.collection.overview.slice(0, 160)
+          : `Colección ${loaderData?.collection.name ?? ""} en NOIR.`,
+      },
+      {
+        property: "og:title",
+        content: loaderData ? loaderData.collection.name : "Colección · NOIR",
+      },
+      {
+        property: "og:description",
+        content: loaderData?.collection.overview?.slice(0, 160) ?? "Colección en NOIR.",
+      },
+      {
+        property: "og:image",
+        content: backdropUrl(loaderData?.collection.backdrop_path) ?? "",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:url",
+        content: loaderData
+          ? `https://noirdatabase.vercel.app/collection/${loaderData.collection.id}`
+          : "",
+      },
+    ],
+  }),
+  pendingComponent: () => <DetailsSkeleton />,
   component: CollectionDetailPage,
 });
 
 function CollectionDetailPage() {
+  const { collection } = Route.useLoaderData();
   const { id } = Route.useParams();
-  
+
   const collectionQuery = useQuery({
     queryKey: ["collection", id],
     queryFn: () => getCollectionDetails({ data: { id } }),
+    initialData: collection, // Usar datos del loader como inicial
   });
 
-  if (collectionQuery.isLoading) return <DetailsSkeleton />;
   if (collectionQuery.isError || !collectionQuery.data) {
     return (
       <AppShell>
@@ -29,9 +72,9 @@ function CollectionDetailPage() {
     );
   }
 
-  const collection = collectionQuery.data;
-  const backdrop = backdropUrl(collection.backdrop_path);
-  const parts = [...collection.parts].sort((a, b) => 
+  const collectionData = collectionQuery.data;
+  const backdrop = backdropUrl(collectionData.backdrop_path);
+  const parts = [...collectionData.parts].sort((a, b) =>
     a.release_date.localeCompare(b.release_date)
   );
 
@@ -59,11 +102,11 @@ function CollectionDetailPage() {
                 Colección · {parts.length} películas
               </p>
               <h1 className="mt-2 font-display text-4xl leading-none font-medium tracking-tight sm:text-5xl">
-                {collection.name}
+                {collectionData.name}
               </h1>
-              {collection.overview ? (
+              {collectionData.overview ? (
                 <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
-                  {collection.overview}
+                  {collectionData.overview}
                 </p>
               ) : null}
             </div>
