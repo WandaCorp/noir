@@ -2,6 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { catalogDef } from "./catalogs";
 import { tagMedia } from "./helpers";
 import type {
+	CollectionSummary,
+	CollectionDetails,
   Genre,
   HomeFeed,
   MediaSummary,
@@ -167,72 +169,25 @@ export const getPersonDetails = createServerFn({ method: "GET" })
   
 export const getPopularCollections = createServerFn({ method: "GET" })
   .handler(async () => {
-    // IDs de colecciones famosas (sagas conocidas)
-    const famousCollectionIds = [
-      10,    // Star Wars
-      1241,  // Harry Potter
-      131,   // Jurassic Park
-      295,   // Pirates of the Caribbean
-      2980,  // Matrix
-      748,   // Spider-Man
-      9485,  // X-Men
-      10194, // The Fast and the Furious
-      2254,  // The Lord of the Rings
-      528,   // The Godfather
-      860,   // Mission: Impossible
-      873,   // Indiana Jones
-      1570,  // Batman
-      173710, // The Hunger Games
-      293,   // Men in Black
-      196,   // Alien
-      308,   // Die Hard
-      1575,  // Rocky
-      1669,  // Terminator
-    ];
-
-    const collections: CollectionDetails[] = [];
+    const famousCollectionIds = [10, 1241, 131, 295, 2980, 748, 9485, 10194, 2254, 528];
     
-    // Obtener detalles de cada colección famosa
-    const results = await Promise.allSettled(
-      famousCollectionIds.map((id) =>
-        tmdbFetch<CollectionDetails>(`collection/${id}`, {
-          language: "es-ES",
-        })
-      )
-    );
-
-    for (const result of results) {
-      if (result.status === "fulfilled") {
-        collections.push(result.value);
-      }
-    }
-
-    return {
-      page: 1,
-      results: collections,
-      total_pages: 1,
-      total_results: collections.length,
-    } as Paginated<CollectionDetails>;
-  });
-    
-    // Filtramos las que tienen colección
-    const withCollections = popular.results.filter((movie) => movie.belongs_to_collection);
-    
-    // Extraemos las colecciones únicas
     const collections: CollectionSummary[] = [];
-    const seen = new Set<number>();
     
-    for (const movie of withCollections) {
-      const collection = movie.belongs_to_collection!;
-      if (!seen.has(collection.id)) {
-        seen.add(collection.id);
-        collections.push({
-          id: collection.id,
-          name: collection.name,
-          overview: "",
-          poster_path: collection.poster_path,
-          backdrop_path: collection.backdrop_path,
+    for (const id of famousCollectionIds) {
+      try {
+        const data = await tmdbFetch<CollectionDetails>(`collection/${id}`, {
+          language: "es-ES",
         });
+        
+        collections.push({
+          id: data.id,
+          name: data.name,
+          overview: data.overview,
+          poster_path: data.poster_path,
+          backdrop_path: data.backdrop_path,
+        });
+      } catch (error) {
+        console.error(`Error obteniendo colección ${id}:`, error);
       }
     }
     
@@ -241,7 +196,7 @@ export const getPopularCollections = createServerFn({ method: "GET" })
       results: collections,
       total_pages: 1,
       total_results: collections.length,
-    } as Paginated<CollectionSummary>;
+    };
   });
 
 export const getCollectionDetails = createServerFn({ method: "GET" })

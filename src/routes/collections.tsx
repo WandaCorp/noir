@@ -47,7 +47,7 @@ function CollectionsPage() {
 }
 
 function CollectionCard({ collection }: { collection: CollectionSummary }) {
-  const backdrop = backdropUrl(collection.backdrop_path, "w500");
+  const backdrop = backdropUrl(collection.backdrop_path, "w780");
 
   return (
     <Link
@@ -73,11 +73,6 @@ function CollectionCard({ collection }: { collection: CollectionSummary }) {
           <h2 className="font-display text-lg font-medium leading-tight text-white">
             {collection.name}
           </h2>
-          {collection.parts_count ? (
-            <p className="mt-1 text-xs text-white/80">
-              {collection.parts_count} películas
-            </p>
-          ) : null}
         </div>
       </div>
     </Link>

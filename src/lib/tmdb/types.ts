@@ -266,6 +266,14 @@ export type CollectionPart = {
   overview: string;
 };
 
+export type CollectionSummary = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+};
+
 export type CollectionDetails = {
   id: number;
   name: string;
@@ -273,13 +281,4 @@ export type CollectionDetails = {
   poster_path: string | null;
   backdrop_path: string | null;
   parts: CollectionPart[];
-};
-
-export type CollectionSummary = {
-  id: number;
-  name: string;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  parts_count?: number;
 };
