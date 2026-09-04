@@ -5,7 +5,8 @@ import { ArrowLeft, Clapperboard, Star } from "lucide-react";
 import { AppShell } from "@/components/layout/app-shell";
 import { DetailsSkeleton } from "@/components/media/skeletons";
 import { getCollectionDetails } from "@/lib/tmdb/api";
-import { backdropUrl, posterUrl, formatRating } from "@/lib/tmdb/helpers";
+import { backdropUrl, posterUrl } from "@/lib/tmdb/helpers";
+import { formatRating } from "@/lib/format";
 
 export const Route = createFileRoute("/collection/$id")({
   component: CollectionDetailPage,
