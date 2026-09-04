@@ -88,7 +88,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </Link>
           </li>
           <li>
-          	<li>
   <Link
     to="/collections"
     className={cn(
@@ -100,18 +99,20 @@ export function AppShell({ children }: { children: ReactNode }) {
     Colecciones
   </Link>
 </li>
-            <Link
-              to="/search"
-              search={{ q: "", genre: "", year: "", media: "all" }}
-              className={cn(
-                "relative flex h-16 flex-col items-center justify-center gap-1 text-[11px]",
-                pathname.startsWith("/search") ? "text-fg" : "text-muted",
-              )}
-            >
-              <Search className="size-5" />
-              Buscar
-            </Link>
-          </li>
+<li>
+  <Link
+    to="/search"
+    search={{ q: "", genre: "", year: "", media: "all" }}
+    className={cn(
+      "relative flex h-16 flex-col items-center justify-center gap-1 text-[11px]",
+      pathname.startsWith("/search") ? "text-fg" : "text-muted",
+    )}
+  >
+    <Search className="size-5" />
+    Buscar
+  </Link>
+</li>
+          
           <li>
             <Link
               to="/favorites"
