@@ -26,7 +26,10 @@ export const Route = createFileRoute("/search")({
     q: typeof search.q === "string" ? search.q : "",
     genre: typeof search.genre === "string" ? search.genre : "",
     year: typeof search.year === "string" ? search.year : "",
-    media: search.media === "movie" || search.media === "tv" || search.media === "person" ? search.media : "all",
+    media:
+      search.media === "movie" || search.media === "tv" || search.media === "person"
+        ? search.media
+        : "all",
   }),
   component: SearchPage,
 });
@@ -57,34 +60,34 @@ function SearchPage() {
     queryFn: () => getGenres(),
   });
 
-const hasQuery = params.q.trim().length > 0;
-const discoverMedia: MediaType = params.media === "tv" ? "tv" : "movie";
-const isPersonSearch = params.media === "person";
+  const hasQuery = params.q.trim().length > 0;
+  const discoverMedia: MediaType = params.media === "tv" ? "tv" : "movie";
+  const isPersonSearch = params.media === "person";
 
-const searchQuery = useInfiniteQuery({
-  queryKey: ["search", params.q, params.media],
-  enabled: hasQuery,
-  queryFn: ({ pageParam }) => {
-    if (isPersonSearch) {
-      return tmdbSearchPerson({
+  const searchQuery = useInfiniteQuery({
+    queryKey: ["search", params.q, params.media],
+    enabled: hasQuery,
+    queryFn: ({ pageParam }) => {
+      if (isPersonSearch) {
+        return tmdbSearchPerson({
+          data: {
+            query: params.q,
+            page: pageParam,
+          },
+        });
+      }
+      return tmdbSearch({
         data: {
           query: params.q,
           page: pageParam,
+          media: params.media === "all" ? "multi" : params.media,
         },
       });
-    }
-    return tmdbSearch({
-      data: {
-        query: params.q,
-        page: pageParam,
-        media: params.media === "all" ? "multi" : params.media,
-      },
-    });
-  },
-  initialPageParam: 1,
-  getNextPageParam: (last) =>
-    last.page < last.total_pages && last.page < 500 ? last.page + 1 : undefined,
-});
+    },
+    initialPageParam: 1,
+    getNextPageParam: (last) =>
+      last.page < last.total_pages && last.page < 500 ? last.page + 1 : undefined,
+  });
 
   const discoverQuery = useInfiniteQuery({
     queryKey: ["discover-search", discoverMedia, params.genre, params.year],
@@ -155,69 +158,83 @@ const searchQuery = useInfiniteQuery({
             <Input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="Nombre de película o serie"
+              placeholder="Nombre de película, serie o persona"
               className="pl-9"
               autoFocus
             />
           </label>
-         <div className="flex gap-1 rounded-lg bg-elevated p-1">
-  <button
-    onClick={() => patch({ media: "all" })}
-    className={cn(
-      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-      params.media === "all" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
-    )}
-  >
-    Todos
-  </button>
-  <button
-    onClick={() => patch({ media: "movie" })}
-    className={cn(
-      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-      params.media === "movie" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
-    )}
-  >
-    Películas
-  </button>
-  <button
-    onClick={() => patch({ media: "tv" })}
-    className={cn(
-      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-      params.media === "tv" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
-    )}
-  >
-    Series
-  </button>
-  <button
-    onClick={() => patch({ media: "person" })}
-    className={cn(
-      "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-      params.media === "person" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg"
-    )}
-  >
-    Personas
-  </button>
-</div>
+
+          {/* Tabs de tipo de búsqueda */}
+          <div className="flex gap-1 rounded-lg bg-elevated p-1 sm:col-span-2 lg:col-span-4">
+            <button
+              onClick={() => patch({ media: "all" })}
+              className={cn(
+                "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                params.media === "all" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg",
+              )}
+            >
+              Todos
+            </button>
+            <button
+              onClick={() => patch({ media: "movie" })}
+              className={cn(
+                "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                params.media === "movie" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg",
+              )}
+            >
+              Películas
+            </button>
+            <button
+              onClick={() => patch({ media: "tv" })}
+              className={cn(
+                "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                params.media === "tv" ? "bg-bg text-fg shadow-sm" : "text-muted hover:text-fg",
+              )}
+            >
+              Series
+            </button>
+            <button
+              onClick={() => patch({ media: "person" })}
+              className={cn(
+                "flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                params.media === "person"
+                  ? "bg-bg text-fg shadow-sm"
+                  : "text-muted hover:text-fg",
+              )}
+            >
+              Personas
+            </button>
+          </div>
+
+          {/* Selects de Género y Año - solo visibles para películas/series */}
           {params.media !== "person" ? (
-  <>
-    <Select value={params.genre} onChange={(e) => patch({ genre: e.target.value })} aria-label="Género">
-      <option value="">Todos los géneros</option>
-      {(genres ?? []).map((genre) => (
-        <option key={genre.id} value={String(genre.id)}>
-          {genre.name}
-        </option>
-      ))}
-    </Select>
-    <Select value={params.year} onChange={(e) => patch({ year: e.target.value })} aria-label="Año">
-      <option value="">Cualquier año</option>
-      {YEAR_OPTIONS.map((year) => (
-        <option key={year} value={year}>
-          {year}
-        </option>
-      ))}
-    </Select>
-  </>
-) : null}
+            <>
+              <Select
+                value={params.genre}
+                onChange={(e) => patch({ genre: e.target.value })}
+                aria-label="Género"
+              >
+                <option value="">Todos los géneros</option>
+                {(genres ?? []).map((genre) => (
+                  <option key={genre.id} value={String(genre.id)}>
+                    {genre.name}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                value={params.year}
+                onChange={(e) => patch({ year: e.target.value })}
+                aria-label="Año"
+              >
+                <option value="">Cualquier año</option>
+                {YEAR_OPTIONS.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </Select>
+            </>
+          ) : null}
         </div>
 
         <div className="mt-8">
@@ -226,18 +243,18 @@ const searchQuery = useInfiniteQuery({
               Escribe un título o filtra por género y fecha para ver el catálogo.
             </p>
           ) : active.isLoading ? (
-  <GridSkeleton />
-) : items.length === 0 ? (
-  <p className="py-16 text-center text-muted">No hay coincidencias con esos filtros.</p>
-) : isPersonSearch ? (
-  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-    {items.map((person) => (
-      <PersonResult key={person.id} person={person as PersonSearchResult} />
-    ))}
-  </div>
-) : (
-  <MediaGrid items={items} />
-)}
+            <GridSkeleton />
+          ) : items.length === 0 ? (
+            <p className="py-16 text-center text-muted">No hay coincidencias con esos filtros.</p>
+          ) : isPersonSearch ? (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((person) => (
+                <PersonResult key={person.id} person={person as PersonSearchResult} />
+              ))}
+            </div>
+          ) : (
+            <MediaGrid items={items} />
+          )}
         </div>
         <div ref={sentinel} className="h-12" />
         {active.isFetchingNextPage ? (
@@ -263,6 +280,7 @@ function PersonResult({ person }: { person: PersonSearchResult }) {
             src={profileUrl(person.profile_path)!}
             alt={person.name}
             className="size-full object-cover"
+            loading="lazy"
           />
         ) : (
           <div className="grid size-full place-items-center text-subtle">
@@ -271,17 +289,17 @@ function PersonResult({ person }: { person: PersonSearchResult }) {
         )}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="font-medium group-hover:text-accent">{person.name}</p>
+        <p className="truncate font-medium group-hover:text-accent">{person.name}</p>
         <p className="text-sm text-muted">{person.known_for_department}</p>
         {person.known_for?.length > 0 ? (
-  <p className="mt-1 truncate text-xs text-subtle">
-    {person.known_for
-      .map((m) => m.title || m.name)
-      .slice(0, 3) // 🆕 Solo mostrar 3 títulos
-      .join(" · ")} {/* 🆕 Separador más visual */}
-    {person.known_for.length > 3 ? "…" : ""} {/* 🆕 Indicar que hay más */}
-  </p>
-) : null}
+          <p className="mt-1 truncate text-xs text-subtle">
+            {person.known_for
+              .map((m) => m.title || m.name)
+              .slice(0, 3)
+              .join(" · ")}
+            {person.known_for.length > 3 ? "…" : ""}
+          </p>
+        ) : null}
       </div>
     </Link>
   );

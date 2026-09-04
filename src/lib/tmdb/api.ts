@@ -164,6 +164,22 @@ export const getPersonDetails = createServerFn({ method: "GET" })
       append_to_response: "combined_credits,images",
     });
   });
+  
+  export const getPopularCollections = createServerFn({ method: "GET" })
+  .handler(async () => {
+    return tmdbFetch<Paginated<CollectionSummary>>("collection/popular", {
+      page: 1,
+      language: "es-ES",
+    });
+  });
+
+export const getCollectionDetails = createServerFn({ method: "GET" })
+  .validator((data: { id: string }) => data)
+  .handler(async ({ data }) => {
+    return tmdbFetch<CollectionDetails>(`collection/${data.id}`, {
+      language: "es-ES",
+    });
+  });
 
 export const getGenres = createServerFn({ method: "GET" }).handler(async () => {
   const [movie, tv] = await Promise.all([

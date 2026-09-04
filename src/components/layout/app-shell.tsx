@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Clapperboard, Heart, Home, Search } from "lucide-react";
+import { Clapperboard, Heart, Home, Library, Search } from "lucide-react";
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,11 @@ export function AppShell({ children }: { children: ReactNode }) {
               )}
             >
               Inicio
+            </Link>
+            <Link
+                to="/collections"
+                 className={cn("inline-flex h-11 items-center rounded-md px-3 text-sm transition-colors duration-150",pathname.startsWith("/collections") ? "text-fg" : "text-muted hover:text-fg",)}>
+              Colecciones
             </Link>
             <Link
               to="/search"
@@ -69,7 +74,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </footer>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-bg/95 backdrop-blur-md md:hidden">
-        <ul className="grid grid-cols-3">
+        <ul className="grid grid-cols-4">
           <li>
             <Link
               to="/"
@@ -83,6 +88,18 @@ export function AppShell({ children }: { children: ReactNode }) {
             </Link>
           </li>
           <li>
+          	<li>
+  <Link
+    to="/collections"
+    className={cn(
+      "relative flex h-16 flex-col items-center justify-center gap-1 text-[11px]",
+      pathname.startsWith("/collections") ? "text-fg" : "text-muted",
+    )}
+  >
+    <Library className="size-5" />
+    Colecciones
+  </Link>
+</li>
             <Link
               to="/search"
               search={{ q: "", genre: "", year: "", media: "all" }}
