@@ -167,11 +167,53 @@ export const getPersonDetails = createServerFn({ method: "GET" })
   
 export const getPopularCollections = createServerFn({ method: "GET" })
   .handler(async () => {
-    // Obtenemos películas populares que pertenecen a colecciones
-    const popular = await tmdbFetch<Paginated<MediaSummary>>("movie/popular", {
+    // IDs de colecciones famosas (sagas conocidas)
+    const famousCollectionIds = [
+      10,    // Star Wars
+      1241,  // Harry Potter
+      131,   // Jurassic Park
+      295,   // Pirates of the Caribbean
+      2980,  // Matrix
+      748,   // Spider-Man
+      9485,  // X-Men
+      10194, // The Fast and the Furious
+      2254,  // The Lord of the Rings
+      528,   // The Godfather
+      860,   // Mission: Impossible
+      873,   // Indiana Jones
+      1570,  // Batman
+      173710, // The Hunger Games
+      293,   // Men in Black
+      196,   // Alien
+      308,   // Die Hard
+      1575,  // Rocky
+      1669,  // Terminator
+    ];
+
+    const collections: CollectionDetails[] = [];
+    
+    // Obtener detalles de cada colección famosa
+    const results = await Promise.allSettled(
+      famousCollectionIds.map((id) =>
+        tmdbFetch<CollectionDetails>(`collection/${id}`, {
+          language: "es-ES",
+        })
+      )
+    );
+
+    for (const result of results) {
+      if (result.status === "fulfilled") {
+        collections.push(result.value);
+      }
+    }
+
+    return {
       page: 1,
-      language: "es-ES",
-    });
+      results: collections,
+      total_pages: 1,
+      total_results: collections.length,
+    } as Paginated<CollectionDetails>;
+  });
     
     // Filtramos las que tienen colección
     const withCollections = popular.results.filter((movie) => movie.belongs_to_collection);
