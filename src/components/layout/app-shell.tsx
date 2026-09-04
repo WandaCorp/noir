@@ -21,7 +21,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="grid size-8 place-items-center rounded-md bg-accent text-accent-fg">
               <Clapperboard className="size-4" />
             </span>
-            <span className="font-display text-2xl leading-none tracking-tight">NOIR</span>
+            <span className="font-display text-2xl leading-none tracking-tight">NOIR DB</span>
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
             <Link
