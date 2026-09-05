@@ -39,14 +39,14 @@ export function TitlePage({ data }: { data: Details }) {
 
   return (
     <article>
-      <section className="relative aspect-[4/3] sm:aspect-video lg:aspect-[21/9]">
+      <section className="relative">
         {backdrop ? (
           <img src={backdrop} alt="" className="absolute inset-0 size-full object-cover" />
         ) : (
           <div className="absolute inset-0 bg-surface" />
         )}
         <div className="absolute inset-0 bg-linear-to-t from-bg via-bg/70 to-bg/25" />
-        <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end gap-6 px-4 py-6 sm:flex-row sm:items-end sm:px-6 sm:py-10">
+        <div className="relative mx-auto flex max-w-6xl flex-col justify-end gap-6 px-4 py-8 sm:flex-row sm:items-end sm:px-6 sm:py-10">
           <div className="hidden w-52 shrink-0 overflow-hidden rounded-xl bg-elevated shadow-[var(--shadow-border)] sm:block">
             {poster ? (
               <img src={poster} alt="" className="aspect-2/3 w-full object-cover" />
