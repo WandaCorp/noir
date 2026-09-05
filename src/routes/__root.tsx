@@ -4,7 +4,7 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { AppErrorComponent } from "@/lib/error-component";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "NOIR";
+const APP_NAME = "The Noir Database";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -52,7 +52,7 @@ function NotFound() {
     <main className="flex min-h-screen flex-col items-center justify-center gap-3 bg-bg px-6 text-center text-fg">
       <p className="text-xs tracking-[0.2em] text-muted uppercase">404</p>
       <h1 className="font-display text-4xl font-medium">Página no encontrada</h1>
-      <p className="max-w-md text-sm text-muted">Ese título o sección no existe en NOIR.</p>
+      <p className="max-w-md text-sm text-muted">Ese título o sección no existe en The Noir Database.</p>
       <a href="/" className="mt-2 inline-flex h-11 items-center rounded-md bg-accent px-4 text-sm font-medium text-accent-fg">
         Volver al inicio
       </a>

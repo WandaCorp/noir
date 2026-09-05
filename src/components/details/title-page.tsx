@@ -67,7 +67,7 @@ export function TitlePage({ data }: { data: Details }) {
             ) : null}
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted">
               <span className="inline-flex items-center gap-1 text-accent">
-                <Star className="size-4 fill-current" />
+                <Star className="size-4 fill-current text-[#FFD700]" />
                 <span className="tabular-nums text-fg">{formatRating(data.vote_average)}</span>
                 <span>({formatCount(data.vote_count)})</span>
               </span>

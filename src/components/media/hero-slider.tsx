@@ -94,7 +94,7 @@ export function HeroSlider({ items }: { items: MediaSummary[] }) {
                     {title}
                   </h2>
                   <p className="mt-3 flex items-center gap-2 text-sm text-accent">
-                    <Star className="size-4 fill-current" />
+                    <Star className="size-4 fill-current text-[#FFD700]" />
                     <span className="tabular-nums">{formatRating(item.vote_average)}</span>
                     <span className="text-muted">en TMDb</span>
                   </p>

@@ -16,22 +16,22 @@ export const Route = createFileRoute("/tv/$id")({
     meta: [
       {
         title: loaderData
-          ? `${mediaTitle(loaderData)} (${mediaYear(loaderData)}) · NOIR`
-          : "Serie · NOIR",
+          ? `${mediaTitle(loaderData)} (${mediaYear(loaderData)}) · The Noir Database`
+          : "Serie · The Noir Database",
       },
       {
         name: "description",
         content: loaderData?.overview
           ? loaderData.overview.slice(0, 160)
-          : "Detalles de la serie en NOIR.",
+          : "Detalles de la serie en The Noir Database.",
       },
       {
         property: "og:title",
-        content: loaderData ? mediaTitle(loaderData) : "Serie · NOIR",
+        content: loaderData ? mediaTitle(loaderData) : "Serie · The Noir Database",
       },
       {
         property: "og:description",
-        content: loaderData?.overview?.slice(0, 160) ?? "Detalles de la serie en NOIR.",
+        content: loaderData?.overview?.slice(0, 160) ?? "Detalles de la serie en The Noir Database.",
       },
       {
         property: "og:image",

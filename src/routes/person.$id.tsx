@@ -20,22 +20,22 @@ export const Route = createFileRoute("/person/$id")({
     meta: [
       {
         title: loaderData
-          ? `${loaderData.person.name} · Biografía y filmografía · NOIR`
-          : "Actor · NOIR",
+          ? `${loaderData.person.name} · Biografía y filmografía · The Noir Database`
+          : "Actor · The Noir Database",
       },
       {
         name: "description",
         content: loaderData?.person.biography
           ? loaderData.person.biography.slice(0, 160)
-          : `Perfil de ${loaderData?.person.name ?? "actor"} en NOIR.`,
+          : `Perfil de ${loaderData?.person.name ?? "actor"} en The Noir Database.`,
       },
       {
         property: "og:title",
-        content: loaderData ? loaderData.person.name : "Actor · NOIR",
+        content: loaderData ? loaderData.person.name : "Actor · The Noir Database",
       },
       {
         property: "og:description",
-        content: loaderData?.person.biography?.slice(0, 160) ?? "Perfil en NOIR.",
+        content: loaderData?.person.biography?.slice(0, 160) ?? "Perfil en The Noir Database.",
       },
       {
         property: "og:image",

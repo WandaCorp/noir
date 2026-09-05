@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "NOIR - Descubre Películas, Series, Actores y Colecciones",
+        title: "The Noir Database",
       },
       {
         name: "description",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "NOIR - Descubre Películas, Series, Actores y Colecciones",
+        content: "The Noir Database",
       },
       {
         property: "og:description",

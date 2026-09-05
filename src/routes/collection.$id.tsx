@@ -17,22 +17,22 @@ export const Route = createFileRoute("/collection/$id")({
     meta: [
       {
         title: loaderData
-          ? `${loaderData.collection.name} · Saga completa · NOIR`
-          : "Colección · NOIR",
+          ? `${loaderData.collection.name} · Saga completa · The Noir Database`
+          : "Colección · The Noir Database",
       },
       {
         name: "description",
         content: loaderData?.collection.overview
           ? loaderData.collection.overview.slice(0, 160)
-          : `Colección ${loaderData?.collection.name ?? ""} en NOIR.`,
+          : `Colección ${loaderData?.collection.name ?? ""} en The Noir Database.`,
       },
       {
         property: "og:title",
-        content: loaderData ? loaderData.collection.name : "Colección · NOIR",
+        content: loaderData ? loaderData.collection.name : "Colección · The Noir Database",
       },
       {
         property: "og:description",
-        content: loaderData?.collection.overview?.slice(0, 160) ?? "Colección en NOIR.",
+        content: loaderData?.collection.overview?.slice(0, 160) ?? "Colección en The Noir Database.",
       },
       {
         property: "og:image",
