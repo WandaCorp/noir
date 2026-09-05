@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Clapperboard, Heart, Home, Library, Search } from "lucide-react";
+import {Heart, Home, Library, Search } from "lucide-react";
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -18,9 +18,6 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border/80 bg-bg/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:h-18 sm:px-6">
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <span className="grid size-8 place-items-center rounded-md bg-accent text-accent-fg">
-              <Clapperboard className="size-4" />
-            </span>
             <span className="font-display text-2xl leading-none tracking-tight">The Noir Database</span>
           </Link>
           <nav className="hidden items-center gap-1 md:flex">

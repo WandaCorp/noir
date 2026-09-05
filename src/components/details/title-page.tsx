@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, Clapperboard, DollarSign, Globe, Play, Star, Tv } from "lucide-react";
+import { useState } from "react";
 import { FavoriteButton } from "@/components/media/favorite-button";
 import { MediaRow } from "@/components/media/media-row";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +16,7 @@ import {
   profileUrl,
 } from "@/lib/tmdb/helpers";
 import type { MovieDetails, TvDetails, WatchLocale } from "@/lib/tmdb/types";
+import { cn } from "@/lib/utils";
 
 type Details = (MovieDetails | TvDetails) & { mediaType: "movie" | "tv" };
 
@@ -97,9 +99,14 @@ export function TitlePage({ data }: { data: Details }) {
                 </Link>
               ))}
             </div>
+
+            {/* 🆕 Sinopsis DENTRO del backdrop - solo tablet/desktop */}
             {data.overview ? (
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">{data.overview}</p>
+              <div className="mt-4 hidden max-w-2xl sm:block">
+                <ExpandableText text={data.overview} />
+              </div>
             ) : null}
+
             {director ? (
               <p className="mt-3 text-sm text-muted">
                 {data.mediaType === "tv" ? "Creación" : "Dirección"}:{" "}
@@ -139,36 +146,43 @@ export function TitlePage({ data }: { data: Details }) {
         </div>
       </section>
 
+      {/* 🆕 Sinopsis FUERA del backdrop - solo móvil */}
+      {data.overview ? (
+        <section className="mx-auto max-w-6xl px-4 pt-6 sm:hidden">
+          <ExpandableText text={data.overview} />
+        </section>
+      ) : null}
+
       <div className="space-y-10 py-8">
         {cast.length > 0 ? (
           <section className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="font-display text-2xl font-medium tracking-tight">Reparto</h2>
             <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
               {cast.map((person) => (
-  <Link
-    key={person.id}
-    to="/person/$id"
-    params={{ id: String(person.id) }}
-    className="w-28 shrink-0 group"
-  >
-    <div className="aspect-2/3 overflow-hidden rounded-lg bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
-      {profileUrl(person.profile_path) ? (
-        <img
-          src={profileUrl(person.profile_path)!}
-          alt=""
-          className="size-full object-cover"
-          loading="lazy"
-        />
-      ) : (
-        <div className="grid size-full place-items-center text-xs text-subtle">Sin foto</div>
-      )}
-    </div>
-    <p className="mt-2 line-clamp-2 text-sm font-medium group-hover:text-accent">
-      {person.name}
-    </p>
-    <p className="line-clamp-2 text-xs text-muted">{person.character}</p>
-  </Link>
-))}
+                <Link
+                  key={person.id}
+                  to="/person/$id"
+                  params={{ id: String(person.id) }}
+                  className="w-28 shrink-0 group"
+                >
+                  <div className="aspect-1/1 overflow-hidden rounded-lg bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
+                    {profileUrl(person.profile_path) ? (
+                      <img
+                        src={profileUrl(person.profile_path)!}
+                        alt=""
+                        className="size-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="grid size-full place-items-center text-xs text-subtle">Sin foto</div>
+                    )}
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-sm font-medium group-hover:text-accent">
+                    {person.name}
+                  </p>
+                  <p className="line-clamp-2 text-xs text-muted">{person.character}</p>
+                </Link>
+              ))}
             </div>
           </section>
         ) : null}
@@ -261,6 +275,32 @@ export function TitlePage({ data }: { data: Details }) {
         ) : null}
       </div>
     </article>
+  );
+}
+
+// 🆕 Componente ExpandableText
+function ExpandableText({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <p
+        className={cn(
+          "text-sm leading-relaxed text-muted sm:text-base",
+          !expanded && "line-clamp-2", // 2 líneas cuando está colapsado
+        )}
+      >
+        {text}
+      </p>
+      {text.length > 120 ? ( // Solo mostrar botón si el texto es largo
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-fg transition-colors"
+        >
+          {expanded ? "Leer menos ↑" : "Leer más ↓"}
+        </button>
+      ) : null}
+    </div>
   );
 }
 
