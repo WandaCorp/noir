@@ -2,8 +2,8 @@ import { Drawer } from "vaul";
 import { useQuery } from "@tanstack/react-query";
 import { Star, Clock, Calendar, Tv } from "lucide-react";
 import { getSeasonDetails } from "@/lib/tmdb/api";
-import { posterUrl, formatRating } from "@/lib/tmdb/helpers";
-import { formatDate, formatRuntime } from "@/lib/format";
+import { posterUrl} from "@/lib/tmdb/helpers";
+import {formatRating, formatDate, formatRuntime } from "@/lib/format";
 import type { Season } from "@/lib/tmdb/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
