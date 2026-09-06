@@ -282,3 +282,25 @@ export type CollectionDetails = {
   backdrop_path: string | null;
   parts: CollectionPart[];
 };
+
+// ============ SEASON TYPES ============
+
+export type Episode = {
+  id: number;
+  name: string;
+  overview: string;
+  still_path: string | null;
+  episode_number: number;
+  air_date: string | null;
+  vote_average: number;
+  runtime: number | null;
+};
+
+export type SeasonDetails = {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  episodes: Episode[];
+};

@@ -11,6 +11,7 @@ import type {
   MovieDetails,
   Paginated,
   TvDetails,
+  SeasonDetails,
 } from "./types";
 
 const TMDB_BASE = "https://api.themoviedb.org/3";
@@ -157,6 +158,14 @@ export const getTvDetails = createServerFn({ method: "GET" })
   .validator((data: { id: string }) => data)
   .handler(async ({ data }) => {
     return tmdbFetch<TvDetails>(`tv/${data.id}`, { append_to_response: APPEND });
+  });
+  
+export const getSeasonDetails = createServerFn({ method: "GET" })
+  .validator((data: { tvId: string; seasonNumber: number }) => data)
+  .handler(async ({ data }) => {
+    return tmdbFetch<SeasonDetails>(`tv/${data.tvId}/season/${data.seasonNumber}`, {
+      language: "es-ES",
+    });
   });
   
 export const getPersonDetails = createServerFn({ method: "GET" })

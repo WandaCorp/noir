@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import {Heart, Home, Library, Search } from "lucide-react";
+import {Heart, Home, Library, Search, Send } from "lucide-react";
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -60,6 +60,17 @@ export function AppShell({ children }: { children: ReactNode }) {
               ) : null}
             </Link>
           </nav>
+          
+          <a
+  href="https://t.me/thenoirdatabase"
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md bg-[#27A7E8] px-3 text-sm font-medium text-white transition-colors hover:bg-[#229ED9] md:hidden"
+>
+  <Send className="size-4" />
+  Telegram
+</a>
+          
           <HeaderSearch />
         </div>
       </header>

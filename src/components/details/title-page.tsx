@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar, Clock, Clapperboard, DollarSign, Globe, Play, Star, Tv } from "lucide-react";
+import { Calendar, Clock, Clapperboard, DollarSign, Globe, Play, Star} from "lucide-react";
 import { useState } from "react";
 import { FavoriteButton } from "@/components/media/favorite-button";
 import { MediaRow } from "@/components/media/media-row";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SeasonDrawer } from "@/components/media/season-drawer";
 import { formatCount, formatDate, formatMoney, formatRating, formatRuntime } from "@/lib/format";
 import {
   backdropUrl,
@@ -205,35 +206,26 @@ export function TitlePage({ data }: { data: Details }) {
         ) : null}
 
         {"seasons" in data && data.seasons?.length ? (
-          <section className="mx-auto max-w-6xl px-4 sm:px-6">
-            <h2 className="font-display text-2xl font-medium tracking-tight">Temporadas</h2>
-            <p className="mt-1 text-sm text-muted">
-              {data.number_of_seasons} temporadas · {data.number_of_episodes} episodios
-              {data.networks?.[0] ? ` · ${data.networks[0].name}` : ""}
-            </p>
-            <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto">
-              {data.seasons
-                .filter((s) => s.season_number > 0)
-                .map((season) => (
-                  <div key={season.id} className="w-36 shrink-0">
-                    <div className="aspect-2/3 overflow-hidden rounded-lg bg-elevated">
-                      {posterUrl(season.poster_path) ? (
-                        <img src={posterUrl(season.poster_path)!} alt="" className="size-full object-cover" />
-                      ) : (
-                        <div className="grid size-full place-items-center text-subtle">
-                          <Tv className="size-6" />
-                        </div>
-                      )}
-                    </div>
-                    <p className="mt-2 text-sm font-medium">{season.name}</p>
-                    <p className="text-xs text-muted">
-                      {season.episode_count} eps{season.air_date ? ` · ${season.air_date.slice(0, 4)}` : ""}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          </section>
-        ) : null}
+  <section className="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 className="font-display text-2xl font-medium tracking-tight">Temporadas</h2>
+    <p className="mt-1 text-sm text-muted">
+      {data.number_of_seasons} temporadas · {data.number_of_episodes} episodios
+      {data.networks?.[0] ? ` · ${data.networks[0].name}` : ""}
+    </p>
+    <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
+      {data.seasons
+        .filter((s) => s.season_number > 0)
+        .map((season) => (
+          <SeasonDrawer
+            key={season.id}
+            season={season}
+            tvId={data.id}
+            tvName={title}
+          />
+        ))}
+    </div>
+  </section>
+) : null}
 
         {providers ? (
           <section className="mx-auto max-w-6xl px-4 sm:px-6">
