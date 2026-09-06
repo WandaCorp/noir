@@ -13,7 +13,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
       { name: "description", content: "Archivo cinematográfico: películas y series con la base de datos de TMDb." },
-      { name: "theme-color", content: "#000000" },
+      { name: "theme-color", content: "#010013" },
       { name: "google-site-verification", content: "xRImWB36n4cetSWfSfIgP-2oqJcJFhIFDdia3jlOaVA" },
     ],
     links: [
