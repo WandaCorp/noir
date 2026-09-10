@@ -62,7 +62,7 @@ export function InfiniteCatalog({
       <h1 className="mt-1 font-display text-4xl font-medium tracking-tight">{title}</h1>
       <p className="mt-2 text-sm text-muted">
         {query.data?.pages[0]?.total_results
-          ? `${query.data.pages[0].total_results.toLocaleString("es-ES")} títulos · desplaza para cargar más`
+          ? `${query.data.pages[0].total_results.toLocaleString("es-MX")} títulos · desplaza para cargar más`
           : "Catálogo TMDb"}
       </p>
 

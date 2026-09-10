@@ -30,7 +30,7 @@ async function tmdbFetch<T>(path: string, query: Query = {}): Promise<T> {
   const apiKey = "692a43c4c264e6dd28bff9f69c0fa8eb";
   const url = new URL(`${TMDB_BASE}/${path}`);
   url.searchParams.set("api_key", apiKey);
-  url.searchParams.set("language", "es-ES");
+  url.searchParams.set("language", "es-MX");
   url.searchParams.set("include_adult", "false");
   for (const [key, value] of Object.entries(query)) {
     if (value !== undefined && value !== "") url.searchParams.set(key, String(value));
@@ -164,7 +164,7 @@ export const getSeasonDetails = createServerFn({ method: "GET" })
   .validator((data: { tvId: string; seasonNumber: number }) => data)
   .handler(async ({ data }) => {
     return tmdbFetch<SeasonDetails>(`tv/${data.tvId}/season/${data.seasonNumber}`, {
-      language: "es-ES",
+      language: "es-MX",
     });
   });
   
@@ -185,7 +185,7 @@ export const getPopularCollections = createServerFn({ method: "GET" })
     for (const id of famousCollectionIds) {
       try {
         const data = await tmdbFetch<CollectionDetails>(`collection/${id}`, {
-          language: "es-ES",
+          language: "es-MX",
         });
         
         collections.push({
@@ -212,7 +212,7 @@ export const getCollectionDetails = createServerFn({ method: "GET" })
   .validator((data: { id: string }) => data)
   .handler(async ({ data }) => {
     return tmdbFetch<CollectionDetails>(`collection/${data.id}`, {
-      language: "es-ES",
+      language: "es-MX",
     });
   });
 

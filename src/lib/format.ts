@@ -11,7 +11,7 @@ export function formatDate(iso: string | null | undefined) {
   if (!iso) return null;
   const date = new Date(`${iso}T00:00:00`);
   if (Number.isNaN(date.getTime())) return iso;
-  return new Intl.DateTimeFormat("es-ES", {
+  return new Intl.DateTimeFormat("es-MX", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -20,7 +20,7 @@ export function formatDate(iso: string | null | undefined) {
 
 export function formatMoney(value: number | null | undefined) {
   if (!value) return null;
-  return new Intl.NumberFormat("es-ES", {
+  return new Intl.NumberFormat("es-MX", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
@@ -29,7 +29,7 @@ export function formatMoney(value: number | null | undefined) {
 
 export function formatCount(value: number | null | undefined) {
   if (value == null) return "0";
-  return new Intl.NumberFormat("es-ES", { notation: "compact", maximumFractionDigits: 1 }).format(value);
+  return new Intl.NumberFormat("es-MX", { notation: "compact", maximumFractionDigits: 1 }).format(value);
 }
 
 export function formatRating(value: number | null | undefined) {
