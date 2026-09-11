@@ -22,7 +22,7 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
       <header className="sticky top-0 z-40 border-b border-border/80 bg-bg/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6 md:justify-start md:gap-4">
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <img src="/The-Noir-Database-logo-app.jpg" alt="The Noir Database" className="size-[45px] rounded-full object-cover md:size-[50px]" />
+            <img src="/The-Noir-Database-logo-app.png" alt="The Noir Database" className="size-[45px] rounded-full object-cover md:size-[50px]" />
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
             <Link
@@ -95,9 +95,26 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
 
       <main className="pb-24 md:pb-10">{children}</main>
 
-      <footer className="hidden border-t border-border px-4 py-8 text-center text-xs text-subtle md:block">
-        <p>Este producto usa la API de TMDb pero no está respaldado ni certificado por TMDb.</p>
-      </footer>
+      <footer className="mb-16 border-t border-border px-4 py-8 md:mb-0">
+  <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 text-xs text-subtle sm:flex-row sm:justify-between">
+    <p className="text-center sm:text-left">
+      Este producto usa la API de TMDb pero no está respaldado ni certificado por TMDb.
+    </p>
+    <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+      <Link to="/privacidad" className={cn("transition-colors hover:text-fg", pathname === "/privacidad" ? "text-fg" : "")}>
+        Política de Privacidad
+      </Link>
+      <span className="text-border" aria-hidden="true">·</span>
+      <Link to="/terminos" className={cn("transition-colors hover:text-fg", pathname === "/terminos" ? "text-fg" : "")}>
+        Términos de Uso
+      </Link>
+      <span className="text-border" aria-hidden="true">·</span>
+      <a href="mailto:nettisssoftware@gmail.com" className="transition-colors hover:text-fg">
+        Contacto
+      </a>
+    </nav>
+  </div>
+</footer>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-bg/95 backdrop-blur-md md:hidden">
         <ul className="grid grid-cols-5">
