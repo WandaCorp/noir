@@ -39,32 +39,23 @@ export function WatchlistButton({
   }
 
   return (
-    <Button
-      type="button"
-      variant={variant}
-      size={size}
-      onClick={handleClick}
-      className={cn(active && "text-accent")}
-      aria-label={
-        active ? "Quitar de ver después" : "Agregar a ver después"
-      }
-    >
-      {showWatched && active && isWatched ? (
-        <>
-          <Check className="size-4" />
-          Vista
-        </>
-      ) : active ? (
-        <>
-          <BookmarkCheck className="size-4" />
-          En lista
-        </>
-      ) : (
-        <>
-          <Bookmark className="size-4" />
-          Ver después
-        </>
-      )}
-    </Button>
-  );
+  <Button
+    type="button"
+    variant={variant}
+    size={size}
+    onClick={handleClick}
+    className={cn(
+      active && "text-accent",
+      // 🆕 Responsive
+      "size-10 rounded-full px-0 sm:h-10 sm:w-auto sm:rounded-md sm:px-4",
+    )}
+    aria-label={active ? "Quitar de ver después" : "Agregar a ver después"}
+  >
+    {active ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
+    {/* 🆕 Texto solo visible en desktop */}
+    <span className="hidden sm:inline">
+      {active ? "En lista" : "Ver después"}
+    </span>
+  </Button>
+);
 }

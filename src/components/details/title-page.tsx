@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar, Clock, Clapperboard, DollarSign, Globe, Play, Star} from "lucide-react";
+import { Calendar, Clock, Clapperboard, DollarSign, Star} from "lucide-react";
 import { useState } from "react";
-import { FavoriteButton } from "@/components/media/favorite-button";
-import { WatchlistButton } from "@/components/media/watchlist-button";
+import { TitleActions } from "@/components/media/title-actions";
 import { MediaRow } from "@/components/media/media-row";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -115,56 +114,33 @@ export function TitlePage({ data }: { data: Details }) {
                 <span className="text-fg">{director.name}</span>
               </p>
             ) : null}
-            <div className="mt-5 flex flex-wrap gap-2">
-              {trailer ? (
-                <Button asChild>
-                  <a href={`https://www.youtube.com/watch?v=${trailer.key}`} target="_blank" rel="noreferrer">
-                    <Play className="size-4" />
-                    Ver tráiler
-                  </a>
-                </Button>
-              ) : null}
-              <WatchlistButton
-  size="default"
-  item={{
-    id: data.id,
-    mediaType: data.mediaType,
-    title,
-    posterPath: data.poster_path,
-    year,
-    rating: data.vote_average,
-  }}
-/>
-              <FavoriteButton
-                size="default"
-                item={{
-                  id: data.id,
-                  mediaType: data.mediaType,
-                  title,
-                  posterPath: data.poster_path,
-                  year,
-                  rating: data.vote_average,
-                }}
-              />
-              {data.homepage ? (
-                <Button asChild variant="outline">
-                  <a href={data.homepage} target="_blank" rel="noreferrer">
-                    <Globe className="size-4" />
-                    Sitio oficial
-                  </a>
-                </Button>
-              ) : null}
-            </div>
+            
           </div>
         </div>
       </section>
 
-      {/* 🆕 Sinopsis FUERA del backdrop - solo móvil */}
-      {data.overview ? (
-        <section className="mx-auto max-w-6xl px-4 pt-6 sm:hidden">
-          <ExpandableText text={data.overview} />
-        </section>
-      ) : null}
+    {/* 🆕 Botones de acción FUERA del backdrop */}
+<section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+  <TitleActions
+    item={{
+      id: data.id,
+      mediaType: data.mediaType,
+      title,
+      posterPath: data.poster_path,
+      year,
+      rating: data.vote_average,
+    }}
+    trailer={trailer}
+    shareTitle={title}
+  />
+</section>
+
+{/* 🆕 Sinopsis FUERA del backdrop - solo móvil */}
+{data.overview ? (
+  <section className="mx-auto max-w-6xl px-4 pt-6 sm:hidden">
+    <ExpandableText text={data.overview} />
+  </section>
+) : null}
 
       <div className="space-y-10 py-8">
         {cast.length > 0 ? (
