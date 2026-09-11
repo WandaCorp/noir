@@ -32,7 +32,13 @@ export function FavoriteButton({
         "size-10 rounded-full px-0 sm:h-10 sm:w-auto sm:rounded-md sm:px-4",
         className,
       )}
-      onClick={...}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const result = toggle(item);
+        if (result === "added") toast.success(`«${item.title}» se guardó en favoritos`);
+        else toast.success(`«${item.title}» se quitó de favoritos`);
+      }}
     >
       <Heart className={cn("size-4", has && "fill-current")} />
       {/* 🆕 Texto solo visible en desktop */}
