@@ -9,9 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { getHomeFeed } from "@/lib/tmdb/api";
 import type { Genre, HomeFeed } from "@/lib/tmdb/types";
 
+
 export const Route = createFileRoute("/")({
   loader: () => getHomeFeed(),
   pendingComponent: HomePending,
+
   head: () => ({
     meta: [
       {
@@ -20,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Descubre películas, series, actores y sagas completas inpulsadas con la base de datos de TMDb.",
+          "Descubre películas, series, actores y sagas completas con información de TMDb.",
       },
       {
         property: "og:title",
@@ -29,7 +31,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Descubre películas, series, actores y sagas completas.",
+          "Descubre películas, series, actores y sagas completas con información de TMDb.",
       },
       {
         property: "og:type",
@@ -39,8 +41,20 @@ export const Route = createFileRoute("/")({
         property: "og:url",
         content: "https://noirdatabase.vercel.app/",
       },
+      {
+        property: "og:image",
+        content: "https://noirdatabase.vercel.app/og.jpg",
+      },
+    ],
+
+    links: [
+      {
+        rel: "canonical",
+        href: "https://noirdatabase.vercel.app/",
+      },
     ],
   }),
+
   component: Home,
 });
 

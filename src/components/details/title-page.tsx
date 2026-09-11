@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, Clapperboard, DollarSign, Globe, Play, Star} from "lucide-react";
 import { useState } from "react";
 import { FavoriteButton } from "@/components/media/favorite-button";
+import { WatchlistButton } from "@/components/media/watchlist-button";
 import { MediaRow } from "@/components/media/media-row";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -123,6 +124,17 @@ export function TitlePage({ data }: { data: Details }) {
                   </a>
                 </Button>
               ) : null}
+              <WatchlistButton
+  size="default"
+  item={{
+    id: data.id,
+    mediaType: data.mediaType,
+    title,
+    posterPath: data.poster_path,
+    year,
+    rating: data.vote_average,
+  }}
+/>
               <FavoriteButton
                 size="default"
                 item={{

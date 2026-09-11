@@ -1,9 +1,10 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import {Heart, Home, Library, Search, Send } from "lucide-react";
+import {Bookmark, Heart, Home, Library, Search, Send } from "lucide-react";
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useFavorites } from "@/lib/favorites";
+import { useWatchlist } from "@/lib/watchlist";
 import { useHydrated } from "@/lib/use-hydrated";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const hydrated = useHydrated();
   const count = useFavorites((s) => s.items.length);
   const badge = hydrated ? count : 0;
+  
+  const watchlistCount = useWatchlist((s) => s.items.filter((i) => !i.watched).length);
+const watchlistBadge = hydrated ? watchlistCount : 0;
 
   return (
     <div className="min-h-dvh bg-bg text-fg">
@@ -45,6 +49,20 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               Buscar
             </Link>
+            <Link
+  to="/watchlist"
+  className={cn(
+    "inline-flex h-11 items-center rounded-md px-3 text-sm transition-colors duration-150",
+    pathname.startsWith("/watchlist") ? "text-fg" : "text-muted hover:text-fg",
+  )}
+>
+  Ver después
+  {watchlistBadge > 0 ? (
+    <span className="ml-1.5 rounded-full bg-elevated px-1.5 text-[11px] tabular-nums text-muted">
+      {watchlistBadge}
+    </span>
+  ) : null}
+</Link>
             <Link
               to="/favorites"
               className={cn(
@@ -82,7 +100,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </footer>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-bg/95 backdrop-blur-md md:hidden">
-        <ul className="grid grid-cols-4">
+        <ul className="grid grid-cols-5">
           <li>
             <Link
               to="/"
@@ -118,6 +136,24 @@ export function AppShell({ children }: { children: ReactNode }) {
   >
     <Search className="size-5" />
     Buscar
+  </Link>
+</li>
+
+<li>
+  <Link
+    to="/watchlist"
+    className={cn(
+      "relative flex h-16 flex-col items-center justify-center gap-1 text-[11px]",
+      pathname.startsWith("/watchlist") ? "text-fg" : "text-muted",
+    )}
+  >
+    <Bookmark className={cn("size-5", pathname.startsWith("/watchlist") && "fill-current")} />
+    Lista
+    {watchlistBadge > 0 ? (
+      <span className="absolute top-2 left-1/2 ml-3 grid min-w-4 place-items-center rounded-full bg-accent px-1 text-[10px] text-accent-fg">
+        {watchlistBadge > 99 ? "99+" : watchlistBadge}
+      </span>
+    ) : null}
   </Link>
 </li>
           
