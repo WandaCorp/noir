@@ -23,7 +23,7 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6 md:justify-start md:gap-4">
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
   <img
-    src="/The-Noir-Database-logo-app.jpg"
+    src="/The-Noir-Database-logo-app.png"
     alt="The Noir Database"
     className="h-auto w-[clamp(120px,18vw,176px)]"
   />
@@ -102,7 +102,11 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
       <footer className="mb-16 border-t border-border px-4 py-8 md:mb-0">
   <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 text-xs text-subtle sm:flex-row sm:justify-between">
     <p className="text-center sm:text-left">
-      Este producto usa la API de TMDb pero no está respaldado ni certificado por TMDb.
+      Explorador de cine y series alimentado por The Movie Database. Este producto usa la API
+      de TMDB, pero no está avalado ni certificado por TMDB.
+    </p>
+    <p className="text-center sm:text-left">
+    	Copyright 2026, NetTiss Software S.R.L. Algunos derechos reservados.
     </p>
     <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
       <Link to="/privacidad" className={cn("transition-colors hover:text-fg", pathname === "/privacidad" ? "text-fg" : "")}>
