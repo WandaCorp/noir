@@ -25,7 +25,7 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
   <img
     src="/The-Noir-Database-logo-app.png"
     alt="The Noir Database"
-    className="h-auto w-[clamp(120px,18vw,176px)]"
+    className="h-auto w-[clamp(110px,18vw,176px)]"
   />
 </Link>
           <nav className="hidden items-center gap-1 md:flex">

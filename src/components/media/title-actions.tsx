@@ -17,7 +17,7 @@ export function TitleActions({ item, trailer, shareTitle }: Props) {
     const url = window.location.href;
     const data = {
       title: shareTitle,
-      text: `Mira ${shareTitle} en NOIR`,
+      text: `Mira ${shareTitle} en The Noir Database`,
       url,
     };
 
