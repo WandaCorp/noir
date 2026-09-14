@@ -220,7 +220,7 @@ function HeaderSearch() {
   return (
     <form onSubmit={onSubmit} className="ml-auto hidden min-w-0 max-w-sm flex-1 md:block">
       <label className="sr-only" htmlFor="header-search">
-        Buscar películas o series
+        Buscar películas, series y/o actores. 
       </label>
       <div className="relative">
         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-subtle" />

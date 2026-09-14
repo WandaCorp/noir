@@ -27,7 +27,7 @@ export function PosterCard({
         params={{ id: String(item.id) }}
         className="block focus-visible:outline-none"
       >
-        <div className="relative aspect-2/3 overflow-hidden rounded-lg bg-elevated shadow-[var(--shadow-border)] transition-[transform,box-shadow] duration-250 ease-[var(--ease-smooth-out)] group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-border-hover)] group-focus-visible:ring-2 group-focus-visible:ring-accent/40">
+        <div className="relative aspect-2/3 overflow-hidden bg-elevated shadow-[var(--shadow-border)] transition-[transform,box-shadow] duration-250 ease-[var(--ease-smooth-out)] group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-border-hover)] group-focus-visible:ring-2 group-focus-visible:ring-accent/40">
           {poster ? (
             <img
               src={poster}
@@ -45,10 +45,10 @@ export function PosterCard({
             {formatRating(item.vote_average)}
           </span>
         </div>
-        <h3 className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-fg">{title}</h3>
+        {/*<h3 className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-fg">{title}</h3>
         <p className="mt-0.5 text-xs text-muted">
           {year || "—"} · {type === "tv" ? "Serie" : "Película"}
-        </p>
+        </p>*/}
       </Link>
       <div className="absolute top-2 right-2 opacity-100 transition-opacity duration-150 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
         <FavoriteButton

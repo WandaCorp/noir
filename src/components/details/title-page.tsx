@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar, Clock, Clapperboard, DollarSign, Star} from "lucide-react";
+import { Calendar, Clock, Clapperboard, DollarSign, Star } from "lucide-react";
 import { useState } from "react";
 import { TitleActions } from "@/components/media/title-actions";
 import { MediaRow } from "@/components/media/media-row";
@@ -66,7 +66,9 @@ export function TitlePage({ data }: { data: Details }) {
               {title}
             </h1>
             {data.tagline ? (
-              <p className="mt-3 max-w-2xl font-display text-lg italic text-muted">{data.tagline}</p>
+              <p className="mt-3 max-w-2xl font-display text-lg italic text-muted">
+                {data.tagline}
+              </p>
             ) : null}
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted">
               <span className="inline-flex items-center gap-1 text-accent">
@@ -114,33 +116,32 @@ export function TitlePage({ data }: { data: Details }) {
                 <span className="text-fg">{director.name}</span>
               </p>
             ) : null}
-            
           </div>
         </div>
       </section>
 
-    {/* 🆕 Botones de acción FUERA del backdrop */}
-<section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
-  <TitleActions
-    item={{
-      id: data.id,
-      mediaType: data.mediaType,
-      title,
-      posterPath: data.poster_path,
-      year,
-      rating: data.vote_average,
-    }}
-    trailer={trailer}
-    shareTitle={title}
-  />
-</section>
+      {/* 🆕 Botones de acción FUERA del backdrop */}
+      <section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+        <TitleActions
+          item={{
+            id: data.id,
+            mediaType: data.mediaType,
+            title,
+            posterPath: data.poster_path,
+            year,
+            rating: data.vote_average,
+          }}
+          trailer={trailer}
+          shareTitle={title}
+        />
+      </section>
 
-{/* 🆕 Sinopsis FUERA del backdrop - solo móvil */}
-{data.overview ? (
-  <section className="mx-auto max-w-6xl px-4 pt-6 sm:hidden">
-    <ExpandableText text={data.overview} />
-  </section>
-) : null}
+      {/* 🆕 Sinopsis FUERA del backdrop - solo móvil */}
+      {data.overview ? (
+        <section className="mx-auto max-w-6xl px-4 pt-6 sm:hidden">
+          <ExpandableText text={data.overview} />
+        </section>
+      ) : null}
 
       <div className="space-y-10 py-8">
         {cast.length > 0 ? (
@@ -163,7 +164,9 @@ export function TitlePage({ data }: { data: Details }) {
                         loading="lazy"
                       />
                     ) : (
-                      <div className="grid size-full place-items-center text-xs text-subtle">Sin foto</div>
+                      <div className="grid size-full place-items-center text-xs text-subtle">
+                        Sin foto
+                      </div>
                     )}
                   </div>
                   <p className="mt-2 line-clamp-2 text-sm font-medium group-hover:text-accent">
@@ -194,26 +197,21 @@ export function TitlePage({ data }: { data: Details }) {
         ) : null}
 
         {"seasons" in data && data.seasons?.length ? (
-  <section className="mx-auto max-w-6xl px-4 sm:px-6">
-    <h2 className="font-display text-2xl font-medium tracking-tight">Temporadas</h2>
-    <p className="mt-1 text-sm text-muted">
-      {data.number_of_seasons} temporadas · {data.number_of_episodes} episodios
-      {data.networks?.[0] ? ` · ${data.networks[0].name}` : ""}
-    </p>
-    <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
-      {data.seasons
-        .filter((s) => s.season_number > 0)
-        .map((season) => (
-          <SeasonDrawer
-            key={season.id}
-            season={season}
-            tvId={data.id}
-            tvName={title}
-          />
-        ))}
-    </div>
-  </section>
-) : null}
+          <section className="mx-auto max-w-6xl px-4 sm:px-6">
+            <h2 className="font-display text-2xl font-medium tracking-tight">Temporadas</h2>
+            <p className="mt-1 text-sm text-muted">
+              {data.number_of_seasons} temporadas · {data.number_of_episodes} episodios
+              {data.networks?.[0] ? ` · ${data.networks[0].name}` : ""}
+            </p>
+            <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
+              {data.seasons
+                .filter((s) => s.season_number > 0)
+                .map((season) => (
+                  <SeasonDrawer key={season.id} season={season} tvId={data.id} tvName={title} />
+                ))}
+            </div>
+          </section>
+        ) : null}
 
         {providers ? (
           <section className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -222,8 +220,12 @@ export function TitlePage({ data }: { data: Details }) {
               {providers.flatrate?.length ? (
                 <ProviderGroup label="Suscripción" items={providers.flatrate} />
               ) : null}
-              {providers.rent?.length ? <ProviderGroup label="Alquiler" items={providers.rent} /> : null}
-              {providers.buy?.length ? <ProviderGroup label="Compra" items={providers.buy} /> : null}
+              {providers.rent?.length ? (
+                <ProviderGroup label="Alquiler" items={providers.rent} />
+              ) : null}
+              {providers.buy?.length ? (
+                <ProviderGroup label="Compra" items={providers.buy} />
+              ) : null}
             </div>
           </section>
         ) : null}
@@ -239,7 +241,9 @@ export function TitlePage({ data }: { data: Details }) {
                   key={review.id}
                   className="rounded-xl bg-surface p-4 shadow-[var(--shadow-border)]"
                 >
-                  <p className="line-clamp-6 text-sm leading-relaxed text-muted">{review.content}</p>
+                  <p className="line-clamp-6 text-sm leading-relaxed text-muted">
+                    {review.content}
+                  </p>
                   <footer className="mt-3 text-xs text-subtle">— {review.author}</footer>
                 </blockquote>
               ))}
@@ -329,7 +333,10 @@ function Facts({ data }: { data: Details }) {
     rows.push({ label: "Países", value: data.production_countries.map((c) => c.name).join(", ") });
   }
   if (data.production_companies?.length) {
-    rows.push({ label: "Productoras", value: data.production_companies.map((c) => c.name).join(", ") });
+    rows.push({
+      label: "Productoras",
+      value: data.production_companies.map((c) => c.name).join(", "),
+    });
   }
   if ("budget" in data && data.budget) {
     rows.push({ label: "Presupuesto", value: formatMoney(data.budget) ?? "—" });
