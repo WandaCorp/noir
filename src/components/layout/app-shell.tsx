@@ -109,18 +109,26 @@ const watchlistBadge = hydrated ? watchlistCount : 0;
     	Copyright 2026, NetTiss Software S.R.L. Algunos derechos reservados.
     </p>
     <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-      <Link to="/privacidad" className={cn("transition-colors hover:text-fg", pathname === "/privacidad" ? "text-fg" : "")}>
-        Política de Privacidad
-      </Link>
-      <span className="text-border" aria-hidden="true">·</span>
-      <Link to="/terminos" className={cn("transition-colors hover:text-fg", pathname === "/terminos" ? "text-fg" : "")}>
-        Términos de Uso
-      </Link>
-      <span className="text-border" aria-hidden="true">·</span>
-      <a href="mailto:nettisssoftware@gmail.com" className="transition-colors hover:text-fg">
-        Contacto
-      </a>
-    </nav>
+  <Link to="/acerca" className={cn("transition-colors hover:text-fg", pathname === "/acerca" ? "text-fg" : "")}>
+    Acerca de
+  </Link>
+  <span className="text-border" aria-hidden="true">·</span>
+  <Link to="/creditos" className={cn("transition-colors hover:text-fg", pathname === "/creditos" ? "text-fg" : "")}>
+    Créditos 
+  </Link>
+  <span className="text-border" aria-hidden="true">·</span>
+  <Link to="/privacidad" className={cn("transition-colors hover:text-fg", pathname === "/privacidad" ? "text-fg" : "")}>
+    Políticas de Privacidad
+  </Link>
+  <span className="text-border" aria-hidden="true">·</span>
+  <Link to="/terminos" className={cn("transition-colors hover:text-fg", pathname === "/terminos" ? "text-fg" : "")}>
+    Términos de Uso 
+  </Link>
+  <span className="text-border" aria-hidden="true">·</span>
+  <a href="mailto:nettisssoftware@gmail.com" className="transition-colors hover:text-fg">
+    Contacto
+  </a>
+</nav>
   </div>
 </footer>
 
