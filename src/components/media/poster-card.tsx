@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Film } from "lucide-react";
 import { FavoriteButton } from "@/components/media/favorite-button";
-import { formatRating } from "@/lib/format";
+import { RatingCircle } from "@/components/media/rating-circle";
 import { mediaTitle, mediaYear, posterUrl, resolveMediaType } from "@/lib/tmdb/helpers";
 import type { MediaSummary, MediaType } from "@/lib/tmdb/types";
 import { cn } from "@/lib/utils";
@@ -41,9 +41,9 @@ export function PosterCard({
             </div>
           )}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-bg/90 to-transparent" />
-          <span className="absolute bottom-2 left-2 rounded-full bg-bg/80 px-2 py-0.5 text-xs font-medium tabular-nums text-accent">
-            {formatRating(item.vote_average)}
-          </span>
+          <div className="absolute bottom-2 left-2">
+            <RatingCircle rating={item.vote_average} />
+          </div>
         </div>
         {/*<h3 className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-fg">{title}</h3>
         <p className="mt-0.5 text-xs text-muted">
