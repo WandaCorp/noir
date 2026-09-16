@@ -178,7 +178,7 @@ export const getPersonDetails = createServerFn({ method: "GET" })
   
 export const getPopularCollections = createServerFn({ method: "GET" })
   .handler(async () => {
-    const famousCollectionIds = [10, 1241, 131, 295, 2980, 748, 9485, 10194, 2254, 528];
+    const famousCollectionIds = [10, 1241, 131, 295, 2980, 748, 9485, 10194, 2254, 528, 531241,1560779,1156666];
     
     const collections: CollectionSummary[] = [];
     

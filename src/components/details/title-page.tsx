@@ -155,7 +155,7 @@ export function TitlePage({ data }: { data: Details }) {
                   params={{ id: String(person.id) }}
                   className="w-28 shrink-0 group"
                 >
-                  <div className="aspect-1/1 overflow-hidden rounded-lg bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
+                  <div className="aspect-1/1 overflow-hidden rounded-full bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
                     {profileUrl(person.profile_path) ? (
                       <img
                         src={profileUrl(person.profile_path)!}
@@ -335,7 +335,7 @@ function Facts({ data }: { data: Details }) {
   if (data.production_companies?.length) {
     rows.push({
       label: "Productoras",
-      value: data.production_companies.map((c) => c.name).join(", "),
+      value: data.production_companies.map((c) => c.name).join("| "),
     });
   }
   if ("budget" in data && data.budget) {

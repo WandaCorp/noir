@@ -164,6 +164,18 @@ export function AppShell({ children }: { children: ReactNode }) {
             <a href="mailto:nettisssoftware@gmail.com" className="transition-colors hover:text-fg">
               Contacto
             </a>
+            <span className="text-border" aria-hidden="true">
+              ·
+            </span>
+            <Link
+              to="/faq"
+              className={cn(
+                "transition-colors hover:text-fg",
+                pathname === "/faq" ? "text-fg" : "",
+              )}
+            >
+              FAQ
+            </Link>
           </nav>
         </div>
       </footer>

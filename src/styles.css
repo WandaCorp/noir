@@ -6,7 +6,7 @@
   --color-surface: #111111;
   --color-elevated: #1a1a1a;
   --color-fg: #f2f2f0;
-  --color-muted: #8c8c88;
+  --color-muted: #c0c0c0;
   --color-subtle: #5c5c58;
   --color-accent: #ece8e0;
   --color-accent-fg: #0a0a0a;
@@ -14,9 +14,12 @@
   --color-danger: #ef0051;
   --color-success: #6a9a7a;
 
-   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-   --font-display: "Cormorant Garamond", "Times New Roman", serif;
-   
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -106,5 +109,23 @@
 @media (prefers-reduced-motion: reduce) {
   .skeleton-shimmer {
     animation: none;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
   }
 }
