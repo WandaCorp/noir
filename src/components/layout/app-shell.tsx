@@ -105,13 +105,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <footer className="mb-16 border-t border-border px-4 py-8 md:mb-0">
         <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 text-xs text-subtle sm:flex-row sm:justify-between">
-          <p className="text-center sm:text-left">
-            Explorador de cine y series alimentado por The Movie Database. Este producto usa la API
-            de TMDB, pero no está avalado ni certificado por TMDB.
-          </p>
-          <p className="text-center sm:text-left">
-            Copyright 2026, NetTiss Software S.R.L. Algunos derechos reservados.
-          </p>
           <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link
               to="/acerca"
@@ -156,7 +149,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 pathname === "/terminos" ? "text-fg" : "",
               )}
             >
-              Términos de Uso
+              Términos de uso
             </Link>
             <span className="text-border" aria-hidden="true">
               ·
@@ -174,9 +167,16 @@ export function AppShell({ children }: { children: ReactNode }) {
                 pathname === "/faq" ? "text-fg" : "",
               )}
             >
-              FAQ
+              Preguntas frecuentes
             </Link>
           </nav>
+          <p className="text-center sm:text-left">
+            Explorador de cine y series alimentado por The Movie Database. Este producto usa la API
+            de TMDB, pero no está avalado ni certificado por TMDB.
+          </p>
+          <p className="text-center sm:text-left">
+            Copyright 2026, NetTiss Software S.R.L. Algunos derechos reservados.
+          </p>
         </div>
       </footer>
 

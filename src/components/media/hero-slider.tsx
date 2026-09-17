@@ -8,7 +8,7 @@ import { backdropUrl, mediaTitle, mediaYear, resolveMediaType } from "@/lib/tmdb
 import type { MediaSummary } from "@/lib/tmdb/types";
 import { cn } from "@/lib/utils";
 
-const INTERVAL = 6500;
+const INTERVAL = 4500;
 
 export function HeroSlider({ items }: { items: MediaSummary[] }) {
   const slides = items.filter((item) => item.backdrop_path).slice(0, 8);
@@ -107,7 +107,7 @@ export function HeroSlider({ items }: { items: MediaSummary[] }) {
                     <Button asChild>
                       <Link to={type === "tv" ? "/tv/$id" : "/movie/$id"} params={{ id: String(item.id) }}>
                         <Play className="size-4" />
-                        Ver ficha
+                        Ver más detalles
                       </Link>
                     </Button>
                     <FavoriteButton

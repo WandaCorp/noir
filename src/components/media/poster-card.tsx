@@ -45,10 +45,10 @@ export function PosterCard({
             <RatingCircle rating={item.vote_average} />
           </div>
         </div>
-        {/*<h3 className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-fg">{title}</h3>
+        <h3 className="mt-2 line-clamp-2 text-sm font-medium leading-snug text-fg">{title}</h3>
         <p className="mt-0.5 text-xs text-muted">
           {year || "—"} · {type === "tv" ? "Serie" : "Película"}
-        </p>*/}
+        </p>
       </Link>
       <div className="absolute top-2 right-2 opacity-100 transition-opacity duration-150 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
         <FavoriteButton

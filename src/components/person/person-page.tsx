@@ -33,7 +33,7 @@ export function PersonPage({
     <article>
       {/* Header */}
       <section className="relative min-h-[60vh]">
-        <div className="absolute inset-0 bg-gradient-to-b from-elevated via-bg to-bg" />
+        <div className="absolute inset-0 from-elevated via-bg to-bg" />
         <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <Link
             to="/"
@@ -194,7 +194,7 @@ function PosterGridItem({ credit }: { credit: PersonCast }) {
       params={{ id: String(credit.id) }}
       className="group block"
     >
-      <div className="overflow-hidden rounded-lg bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
+      <div className="overflow-hidden bg-elevated shadow-[var(--shadow-border)] transition-transform duration-200 group-hover:scale-105">
         {posterUrl(credit.poster_path, "w342") ? (
           <img
             src={posterUrl(credit.poster_path, "w342")!}
