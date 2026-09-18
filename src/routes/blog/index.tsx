@@ -10,7 +10,7 @@ import { fetchAllPosts, extractSections } from "@/lib/blog/api";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog · The Noir Database" },
