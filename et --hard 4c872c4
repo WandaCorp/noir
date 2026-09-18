@@ -1,0 +1,20 @@
+[33m8898903[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Se añadio una nueva sección Blog en el proyecto
+[33m4c872c4[m cambios minimos
+[33m5a85232[m Algunos problemas conocidos corregidos
+[33me4c2a11[m feat: agregar barra circular de rating con colores dinámicos
+[33ma1f2802[m Mejoras basicos en UI
+[33m8491c6b[m correccion de enlaces en el footer
+[33m1092ef3[m Mejoras minimas en la interfaz
+[33m00807a8[m Google AdSense agregado
+[33m1d203e0[m Bug fixes
+[33md7cb0e2[m correcciones menores en el logo
+[33m358bb4d[m feat: agregar páginas legales de privacidad y términos
+[33mbdbe117[m fix: corregir onClick en favorite-button
+[33m6ce5a52[m mejoras en UI de la pagina de detalles de peliculas y series
+[33mfebf6ee[m Mejoras de SEO y nueva sección añadida
+[33m9315787[m mejoras minimas realizadas
+[33m8b78d7d[m Mejoras simples en la UI del home
+[33m6ada839[m Corrección de iconos
+[33ma22845c[m Cambios de iconos de la aplicación
+[33mf4023ef[m feat: agregar favicons personalizados
+[33me960aaf[m fix: corregir import de formatRating en season-drawer

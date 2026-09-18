@@ -107,6 +107,18 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 text-xs text-subtle sm:flex-row sm:justify-between">
           <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link
+              to="/blog"
+              className={cn(
+                "transition-colors hover:text-fg",
+                pathname.startsWith("/blog") ? "text-fg" : "",
+              )}
+            >
+              Blog
+            </Link>
+            <span className="text-border" aria-hidden="true">
+              ·
+            </span>
+            <Link
               to="/acerca"
               className={cn(
                 "transition-colors hover:text-fg",
