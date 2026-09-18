@@ -85,7 +85,9 @@ export function extractSections(posts: BlogPost[]): string[] {
 }
 
 export async function fetchPostById(id: string): Promise<BlogPost | null> {
-  const res = await fetch(`${BASE_URL}/${encodeURIComponent(id)}`, {
+  const decodedId = decodeURIComponent(id);
+  
+  const res = await fetch(`${BASE_URL}/${decodedId}`, {
     headers: { Accept: "application/json" },
   });
 
