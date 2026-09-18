@@ -85,8 +85,6 @@ export function extractSections(posts: BlogPost[]): string[] {
 }
 
 export async function fetchPostById(id: string): Promise<BlogPost | null> {
-   // Decodificar el ID (por si viene con %C3%AD, %20, etc.)
-  const decodedId = decodeURIComponent(id);
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(id)}`, {
     headers: { Accept: "application/json" },
   });
