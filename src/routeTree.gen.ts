@@ -10,9 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcercaRouteImport } from './routes/acerca'
+import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as CreditosRouteImport } from './routes/creditos'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FavoritesRouteImport } from './routes/favorites'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as CollectionIdRouteImport } from './routes/collection.$id'
 import { Route as MovieIdRouteImport } from './routes/movie.$id'
+import { Route as PersonIdRouteImport } from './routes/person.$id'
 import { Route as TvIdRouteImport } from './routes/tv.$id'
 import { Route as CatalogMediaCategoryRouteImport } from './routes/catalog.$media.$category'
 
@@ -21,9 +32,34 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcercaRoute = AcercaRouteImport.update({
+  id: '/acerca',
+  path: '/acerca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionsRoute = CollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreditosRoute = CreditosRouteImport.update({
+  id: '/creditos',
+  path: '/creditos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -31,9 +67,39 @@ const SearchRoute = SearchRouteImport.update({
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TerminosRoute = TerminosRouteImport.update({
+  id: '/terminos',
+  path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchlistRoute = WatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionIdRoute = CollectionIdRouteImport.update({
+  id: '/collection/$id',
+  path: '/collection/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MovieIdRoute = MovieIdRouteImport.update({
   id: '/movie/$id',
   path: '/movie/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonIdRoute = PersonIdRouteImport.update({
+  id: '/person/$id',
+  path: '/person/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TvIdRoute = TvIdRouteImport.update({
@@ -49,62 +115,139 @@ const CatalogMediaCategoryRoute = CatalogMediaCategoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/acerca': typeof AcercaRoute
+  '/collections': typeof CollectionsRoute
+  '/creditos': typeof CreditosRoute
+  '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
+  '/privacidad': typeof PrivacidadRoute
   '/search': typeof SearchRoute
+  '/terminos': typeof TerminosRoute
+  '/watchlist': typeof WatchlistRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/collection/$id': typeof CollectionIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/person/$id': typeof PersonIdRoute
   '/tv/$id': typeof TvIdRoute
+  '/blog/': typeof BlogIndexRoute
   '/catalog/$media/$category': typeof CatalogMediaCategoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/acerca': typeof AcercaRoute
+  '/collections': typeof CollectionsRoute
+  '/creditos': typeof CreditosRoute
+  '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
+  '/privacidad': typeof PrivacidadRoute
   '/search': typeof SearchRoute
+  '/terminos': typeof TerminosRoute
+  '/watchlist': typeof WatchlistRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/collection/$id': typeof CollectionIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/person/$id': typeof PersonIdRoute
   '/tv/$id': typeof TvIdRoute
+  '/blog': typeof BlogIndexRoute
   '/catalog/$media/$category': typeof CatalogMediaCategoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/acerca': typeof AcercaRoute
+  '/collections': typeof CollectionsRoute
+  '/creditos': typeof CreditosRoute
+  '/faq': typeof FaqRoute
   '/favorites': typeof FavoritesRoute
+  '/privacidad': typeof PrivacidadRoute
   '/search': typeof SearchRoute
+  '/terminos': typeof TerminosRoute
+  '/watchlist': typeof WatchlistRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/collection/$id': typeof CollectionIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/person/$id': typeof PersonIdRoute
   '/tv/$id': typeof TvIdRoute
+  '/blog/': typeof BlogIndexRoute
   '/catalog/$media/$category': typeof CatalogMediaCategoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/acerca'
+    | '/collections'
+    | '/creditos'
+    | '/faq'
     | '/favorites'
+    | '/privacidad'
     | '/search'
+    | '/terminos'
+    | '/watchlist'
+    | '/blog/$slug'
+    | '/collection/$id'
     | '/movie/$id'
+    | '/person/$id'
     | '/tv/$id'
+    | '/blog/'
     | '/catalog/$media/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/acerca'
+    | '/collections'
+    | '/creditos'
+    | '/faq'
     | '/favorites'
+    | '/privacidad'
     | '/search'
+    | '/terminos'
+    | '/watchlist'
+    | '/blog/$slug'
+    | '/collection/$id'
     | '/movie/$id'
+    | '/person/$id'
     | '/tv/$id'
+    | '/blog'
     | '/catalog/$media/$category'
   id:
     | '__root__'
     | '/'
+    | '/acerca'
+    | '/collections'
+    | '/creditos'
+    | '/faq'
     | '/favorites'
+    | '/privacidad'
     | '/search'
+    | '/terminos'
+    | '/watchlist'
+    | '/blog/$slug'
+    | '/collection/$id'
     | '/movie/$id'
+    | '/person/$id'
     | '/tv/$id'
+    | '/blog/'
     | '/catalog/$media/$category'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcercaRoute: typeof AcercaRoute
+  CollectionsRoute: typeof CollectionsRoute
+  CreditosRoute: typeof CreditosRoute
+  FaqRoute: typeof FaqRoute
   FavoritesRoute: typeof FavoritesRoute
+  PrivacidadRoute: typeof PrivacidadRoute
   SearchRoute: typeof SearchRoute
+  TerminosRoute: typeof TerminosRoute
+  WatchlistRoute: typeof WatchlistRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  CollectionIdRoute: typeof CollectionIdRoute
   MovieIdRoute: typeof MovieIdRoute
+  PersonIdRoute: typeof PersonIdRoute
   TvIdRoute: typeof TvIdRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   CatalogMediaCategoryRoute: typeof CatalogMediaCategoryRoute
 }
 
@@ -117,11 +260,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/acerca': {
+      id: '/acerca'
+      path: '/acerca'
+      fullPath: '/acerca'
+      preLoaderRoute: typeof AcercaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collections': {
+      id: '/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof CollectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creditos': {
+      id: '/creditos'
+      path: '/creditos'
+      fullPath: '/creditos'
+      preLoaderRoute: typeof CreditosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/favorites': {
       id: '/favorites'
       path: '/favorites'
       fullPath: '/favorites'
       preLoaderRoute: typeof FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -131,11 +309,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terminos': {
+      id: '/terminos'
+      path: '/terminos'
+      fullPath: '/terminos'
+      preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watchlist': {
+      id: '/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof WatchlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collection/$id': {
+      id: '/collection/$id'
+      path: '/collection/$id'
+      fullPath: '/collection/$id'
+      preLoaderRoute: typeof CollectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/movie/$id': {
       id: '/movie/$id'
       path: '/movie/$id'
       fullPath: '/movie/$id'
       preLoaderRoute: typeof MovieIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/person/$id': {
+      id: '/person/$id'
+      path: '/person/$id'
+      fullPath: '/person/$id'
+      preLoaderRoute: typeof PersonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tv/$id': {
@@ -157,10 +377,21 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcercaRoute: AcercaRoute,
+  CollectionsRoute: CollectionsRoute,
+  CreditosRoute: CreditosRoute,
+  FaqRoute: FaqRoute,
   FavoritesRoute: FavoritesRoute,
+  PrivacidadRoute: PrivacidadRoute,
   SearchRoute: SearchRoute,
+  TerminosRoute: TerminosRoute,
+  WatchlistRoute: WatchlistRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  CollectionIdRoute: CollectionIdRoute,
   MovieIdRoute: MovieIdRoute,
+  PersonIdRoute: PersonIdRoute,
   TvIdRoute: TvIdRoute,
+  BlogIndexRoute: BlogIndexRoute,
   CatalogMediaCategoryRoute: CatalogMediaCategoryRoute,
 }
 export const routeTree = rootRouteImport
