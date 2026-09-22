@@ -187,7 +187,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             de TMDB, pero no está avalado ni certificado por TMDB.
           </p>
           <p className="text-center sm:text-left">
-            Copyright 2026, NetTiss Software S.R.L. Algunos derechos reservados.
+            © 2026 Copyright The Noir Database, NetTiss Software. Algunos derechos reservados.
           </p>
         </div>
       </footer>
